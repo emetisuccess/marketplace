@@ -12,12 +12,11 @@ const Navbar = () => {
   const [toggleMenu, setToggleMenu] = React.useState(false);
 
   return (
-    <nav className="w-full flex md:justify-center justify-between align-center p-4">
-      <div className="md:flex[0.5] flex-initial justify-center items-center text-white mt-2">
-        {/* <img src={logo} alt="logo" className="w-32 cursor-pointer" /> */}
-        Logo
+    <nav className="w-full flex md:justify-center justify-between items-center p-4">
+      <div className="md:flex[0.5] flex-initial justify-center items-center pr-5 text-white mt-2">
+        <img src={logo} alt="logo" className="w-32 cursor-pointer" />
       </div>
-      <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial">
+      <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial mt-2">
         {["Market", "Exchange", "Tutorial", "Wallet"].map((item, index) => (
           <NavbarItem key={item + index} title={item} />
         ))}
@@ -58,5 +57,4 @@ const Navbar = () => {
     </nav>
   );
 };
-
 export default Navbar;
