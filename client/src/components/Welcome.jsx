@@ -1,25 +1,32 @@
+import React, { useContext } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
+import { TransactionContext } from "../context/TransactionContext";
 import { Loader } from "./";
 
 const commonStyles =
   "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-white";
 const styles =
   "my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism";
-const input = ({ placeholder, name, type, value, handleChange }) => (
-  <input
-    placeholder={placeholder}
-    type={type}
-    step="0.0001"
-    value={value}
-    onChange={(e) => handleChange(e, name)}
-  />
-);
+// const input = ({ placeholder, name, type, value, handleChange }) => (
+//   <input
+//     placeholder={placeholder}
+//     type={type}
+//     step="0.0001"
+//     value={value}
+//     onChange={(e) => handleChange(e, name)}
+//   />
+// );
 const Welcome = () => {
-  const connectWallet = () => {};
+  const { connectWallet, currentAccount } = useContext(TransactionContext);
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    const addressTo = document.getElementById("addressTo").value;
+    const amount = document.getElementById("amount").value;
+    const keyword = document.getElementById("keyword").value;
+    const message = document.getElementById("message").value;
+  };
 
   return (
     <div className="flex w-full justify-center items-center">
@@ -31,13 +38,17 @@ const Welcome = () => {
           <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base mb-5">
             Explore the NFT world, Buy and sell NFTs easily on Company name.
           </p>
-          <button
-            className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd] "
-            type="button"
-            onClick={connectWallet}
-          >
-            <p className="text-white text-base font-semibold">Connect Wallet</p>
-          </button>
+          {!currentAccount && (
+            <button
+              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd] "
+              type="button"
+              onClick={connectWallet}
+            >
+              <p className="text-white text-base font-semibold">
+                Connect Wallet
+              </p>
+            </button>
+          )}
           <div className="grid sm:grid-cols-3 grid-cols-3 w-full mt-10 ">
             <div className={`rounded-tl-2xl ${commonStyles}`}>Reliability</div>
             <div className={`${commonStyles}`}>Security</div>
@@ -69,28 +80,38 @@ const Welcome = () => {
               placeholder="Address To"
               name="addressTo"
               type="text"
-              handleChange={() => {}}
+              id="addressTo"
+              onChange={(e) => e}
+              // handleChange={() => {}}
               className={styles}
             />
             <input
               placeholder="Amount (ETH)"
               name="amount"
               type="number"
-              handleChange={() => {}}
+              id="amount"
+              step={0.0001}
+              min={0.0001}
+              onChange={(e) => e}
+              // handleChange={() => {}}
               className={styles}
             />
             <input
               placeholder="Keyword (Gif)"
               name="keyword"
               type="text"
-              handleChange={() => {}}
+              id="keyword"
+              onChange={(e) => e}
+              // handleChange={() => {}}
               className={styles}
             />
             <input
               placeholder="Enter Message"
               name="message"
               type="text"
-              handleChange={() => {}}
+              id="message"
+              onChange={(e) => e}
+              // handleChange={() => {}}
               className={styles}
             />
 
