@@ -21,6 +21,21 @@ const getEthereumContract = () => {
 };
 
 export const TransactionProvider = ({ children }) => {
+  // get the formData
+  const [formData, setFormData] = useState({
+    addressTo: "",
+    amount: "",
+    keyword: "",
+    message: ""
+  });
+
+  //   watch for changes and get the values
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
   // create a usestate field
   const [currentAccount, setCurrentAccount] = useState("");
 
@@ -60,9 +75,20 @@ export const TransactionProvider = ({ children }) => {
       setCurrentAccount(accounts[0]);
     } catch (error) {
       console.log(error);
-
       throw new Error("No ethereum object");
     }
+
+    const sendTransaction = async () => {
+      try {
+        // check if the user has installed metamask
+        if (!ethereum) return alert("Please intall metamask");
+        // get the data from the form;
+      } catch (error) {
+        console.log(error);
+
+        throw new Error("No ethereum object");
+      }
+    };
   };
 
   useEffect(() => {
@@ -70,7 +96,15 @@ export const TransactionProvider = ({ children }) => {
   }, []);
 
   return (
-    <TransactionContext.Provider value={{ connectWallet, currentAccount }}>
+    <TransactionContext.Provider
+      value={{
+        connectWallet,
+        currentAccount,
+        formData,
+        setFormData,
+        handleChange
+      }}
+    >
       {children}
     </TransactionContext.Provider>
   );

@@ -7,25 +7,20 @@ import { Loader } from "./";
 
 const commonStyles =
   "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-white";
+
 const styles =
   "my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism";
-// const input = ({ placeholder, name, type, value, handleChange }) => (
-//   <input
-//     placeholder={placeholder}
-//     type={type}
-//     step="0.0001"
-//     value={value}
-//     onChange={(e) => handleChange(e, name)}
-//   />
-// );
-const Welcome = () => {
-  const { connectWallet, currentAccount } = useContext(TransactionContext);
 
-  const handleSubmit = () => {
-    const addressTo = document.getElementById("addressTo").value;
-    const amount = document.getElementById("amount").value;
-    const keyword = document.getElementById("keyword").value;
-    const message = document.getElementById("message").value;
+const Welcome = () => {
+  const { connectWallet, currentAccount, formData, setFormData, handleChange } =
+    useContext(TransactionContext);
+
+  const handleSubmit = (e) => {
+    const { addressTo, amount, keyword, message } = formData;
+    e.preventDefault();
+
+    // check if input fields are empty;
+    if (!addressTo || !amount || !keyword || !message) return;
   };
 
   return (
@@ -80,38 +75,31 @@ const Welcome = () => {
               placeholder="Address To"
               name="addressTo"
               type="text"
-              id="addressTo"
-              onChange={(e) => e}
-              // handleChange={() => {}}
+              onChange={handleChange}
               className={styles}
             />
             <input
               placeholder="Amount (ETH)"
               name="amount"
               type="number"
-              id="amount"
               step={0.0001}
               min={0.0001}
-              onChange={(e) => e}
-              // handleChange={() => {}}
+              onChange={handleChange}
               className={styles}
             />
+
             <input
               placeholder="Keyword (Gif)"
               name="keyword"
               type="text"
-              id="keyword"
-              onChange={(e) => e}
-              // handleChange={() => {}}
+              onChange={handleChange}
               className={styles}
             />
             <input
               placeholder="Enter Message"
               name="message"
               type="text"
-              id="message"
-              onChange={(e) => e}
-              // handleChange={() => {}}
+              onChange={handleChange}
               className={styles}
             />
 
